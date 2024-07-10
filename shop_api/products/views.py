@@ -35,10 +35,10 @@ def product_list_api_view(request):
 
 @api_view(http_method_names=['GET'])
 def product_detail_api_view(request, id):
-    # try:
-    product = Product.objects.get(id=id)
-    # except Product.DoesNotExist:
-    #     return Response(status=status.HTTP_404_NOT_FOUND)
+    try:
+        product = Product.objects.get(id=id)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     data = ProductSerializer(product, many=False).data
     return Response(data=data, status=status.HTTP_200_OK)
